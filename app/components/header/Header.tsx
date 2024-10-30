@@ -30,7 +30,7 @@ const Header = () => {
         >
           Book Appointment
           <Image
-            alt="User Name"
+            alt="arrow appointment"
             src={require("@assets/assets_frontend/arrow_icon.svg")}
             className="w-4 rounded-full"
           />
@@ -40,7 +40,7 @@ const Header = () => {
       {/* Right Side */}
       <div className="md:w-1/2 relative ">
         <Image
-          alt="User Name"
+          alt="header image"
           src={require("@assets/assets_frontend/header_img.png")}
           className="w-full md:absolute bottom-0 h-auto rounded-lg"
         />

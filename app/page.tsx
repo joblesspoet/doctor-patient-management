@@ -6,13 +6,11 @@ import Footer from "@components/footer/Footer";
 
 export default function Home() {
   return (
-    <div className="text-green-500">
+    <div>
       <Header />
       <SpecialityMenu />
       <TopDoctors />
       <BannerHome />
-
-      <Footer />
     </div>
   );
 }

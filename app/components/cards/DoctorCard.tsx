@@ -1,22 +1,7 @@
+"use client";
 import React from "react";
 import Image from "next/image"; // Assuming you're using Next.js
-
-type AddressObject = {
-  line1: string;
-  line2: string;
-};
-
-type DoctorProps = {
-  _id: string;
-  name: string;
-  image: string; // Assuming image is a URL string for Next.js's Image component
-  speciality: string;
-  degree?: string;
-  experience?: string;
-  about?: string;
-  fees?: number;
-  address?: AddressObject | null;
-};
+import { DoctorProps } from "@/app/interfaces/common";
 
 const DoctorCard: React.FC<DoctorProps> = ({
   _id,
@@ -28,9 +13,17 @@ const DoctorCard: React.FC<DoctorProps> = ({
   about,
   fees,
   address,
+  clickHandler,
 }) => {
+  const onDocClick = () => {
+    if (clickHandler) {
+      clickHandler(_id);
+    }
+  };
+
   return (
     <div
+      onClick={onDocClick}
       className="border border-blue-200 rounded-xl overflow-hidden cursor-pointer hover:translate-y-[-10px] transition-all duration-500"
       key={`doctor_list_item_${_id}`}
     >
@@ -40,7 +33,7 @@ const DoctorCard: React.FC<DoctorProps> = ({
         id={_id}
         className="bg-blue-50 w-full"
         height={200}
-      />{" "}
+      />
       {/* Adjust width/height as needed */}
       <div className="p-4">
         <div className="flex items-center gap-2 text-sm text-center text-green-500">

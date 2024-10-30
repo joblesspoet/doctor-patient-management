@@ -9,7 +9,7 @@ const Footer = () => {
         <div>
           <Image
             src={require("@assets/assets_frontend/logo.svg")}
-            alt="logo"
+            alt="footer logo"
             className="mb-5 w-40"
           />
           <p className="w-full md:w-2/3 text-gray-600 leading-6">

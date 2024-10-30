@@ -1,16 +1,11 @@
 "use client";
 import DoctorySpecialityNavCard from "@/app/components/cards/DoctorySpecialityNavCard";
+import DoctorsListing from "@/app/components/doctors/DoctorsListing";
+import { PageProps } from "@/app/interfaces/common";
 import { doctors, specialityData } from "@assets/assets_frontend/assets";
 import DoctorCard from "@components/cards/DoctorCard";
 import { useRouter } from "next/navigation";
 import React from "react";
-
-interface PageProps {
-  params: {
-    slug: string;
-  };
-}
-
 
 const DoctorSpecialityPage = ({ params }: PageProps) => {
   const { slug } = params;
@@ -21,7 +16,11 @@ const DoctorSpecialityPage = ({ params }: PageProps) => {
   );
 
   const handleSpecialityClick = (newSpeciality: string) => {
-    router.push(`/doctors/speciality/${newSpeciality}`);
+    router.push(`/doctors/speciality/${newSpeciality.toLowerCase()}`);
+  };
+
+  const handleDoctorClick = (id: string) => {
+    router.push(`/doctors/appointment/${id}`);
   };
 
   return (
@@ -33,16 +32,21 @@ const DoctorSpecialityPage = ({ params }: PageProps) => {
             return (
               <DoctorySpecialityNavCard
                 key={speciality.slug}
+                slug={speciality.slug}
                 title={speciality.speciality}
                 onItemClick={handleSpecialityClick}
+                isSelected={
+                  speciality.slug.toLowerCase() === slug.toLowerCase()
+                }
               />
             );
           })}
         </div>
         <div className="w-full grid grid-cols-auto gap-4 gap-y-6">
-          {filtersDoc.map((doctor: any) => {
-            return <DoctorCard key={`doctor_${doctor._id}`} {...doctor} />;
-          })}
+          <DoctorsListing
+            doctors={filtersDoc}
+            clickHandler={handleDoctorClick}
+          />
         </div>
       </div>
     </div>
