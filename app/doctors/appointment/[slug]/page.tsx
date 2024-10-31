@@ -24,6 +24,10 @@ const AppointmentPage = ({ params }: PageProps) => {
     setSelectedSlot(item);
   };
 
+  const handleBookSlotEvent = () => {
+    alert("called.");
+  };
+
   useEffect(() => {
     const fetchDoc = () => {
       const doctor = doctors.find((doc: Doctor) => doc._id === slug);
@@ -122,7 +126,11 @@ const AppointmentPage = ({ params }: PageProps) => {
             );
           })}
         </div>
-        <button className="bg-primary text-white text-sm font-light px-14 py-3 rounded-full my-6">
+        <button
+          onClick={handleBookSlotEvent}
+          disabled={selectedSlot === null}
+          className="bg-primary text-white text-sm font-light px-14 py-3 rounded-full my-6"
+        >
           Book Appointment
         </button>
       </div>

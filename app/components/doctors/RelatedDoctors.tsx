@@ -2,14 +2,20 @@ import React from "react";
 import { Doctor, RelatedDoctorsProps } from "@/app/interfaces/common";
 import DoctorsListing from "./DoctorsListing";
 import { doctors } from "@/app/assets/assets_frontend/assets";
+import { useRouter } from "next/navigation";
 
 const RelatedDoctors: React.FC<RelatedDoctorsProps> = ({
   speciality,
   docId,
 }) => {
+  const router = useRouter();
   const relatedDoctors = doctors.filter(
     (doctor: Doctor) => doctor._id !== docId && doctor.speciality === speciality
   );
+
+  const handleDoctorClick = (id: string) => {
+    router.push(`/doctors/appointment/${id}`);
+  };
 
   return (
     <div className="flex flex-col items-center gap-4 my-16 text-gray-900 md:mx-10">
@@ -18,7 +24,10 @@ const RelatedDoctors: React.FC<RelatedDoctorsProps> = ({
         Simply browse through our extensive list of trusted doctors.
       </p>
       <div className="w-full grid grid-cols-auto gap-4 pt-5 gap-y-6 px-3 sm:px-0">
-        <DoctorsListing doctors={relatedDoctors} />
+        <DoctorsListing
+          doctors={relatedDoctors}
+          clickHandler={handleDoctorClick}
+        />
       </div>
     </div>
   );
