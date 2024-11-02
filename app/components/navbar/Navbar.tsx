@@ -3,11 +3,15 @@
 import Image from "next/image";
 import React, { useState } from "react";
 import Link from "next/link";
-import { usePathname } from "next/navigation"; // Use usePathname for App Router
+import { usePathname, useRouter } from "next/navigation"; // Use usePathname for App Router
+import { logout } from "@/app/actions/auth";
 
-const Navbar = () => {
+type NavbarProps = {
+  user: any | null;
+};
+const Navbar: React.FC<NavbarProps> = ({ user }) => {
+  const router = useRouter();
   const pathname = usePathname(); // Get the current path
-  const [token, setToken] = useState<boolean>(true);
   const [isDropdownOpen, setIsDropdownOpen] = useState<boolean>(false); // State for dropdown visibility
 
   // Function to check if the link is active
@@ -18,6 +22,14 @@ const Navbar = () => {
     setIsDropdownOpen(!isDropdownOpen);
   };
 
+  const logoutUser = async () => {
+    const resp = await logout();
+    if (resp.msg === "success") {
+      router.replace("/");
+    }
+  };
+
+  console.log(user);
   return (
     <div className="flex justify-between items-center text-sm py-4 mb-5 border-b border-b-gray-400">
       <Image
@@ -68,7 +80,7 @@ const Navbar = () => {
         </Link>
       </ul>
       <div className="flex items-center gap-4">
-        {token ? (
+        {user !== null ? (
           <div className="flex items-center gap-2 cursor-pointer group relative">
             <Image
               alt="User Name"
@@ -104,7 +116,8 @@ const Navbar = () => {
                   </li>
                   <li>
                     <Link
-                      href="/auth/logout"
+                      href="#"
+                      onClick={logoutUser}
                       className="block px-4 py-2 hover:text-black cursor-pointer"
                     >
                       Logout
@@ -115,9 +128,12 @@ const Navbar = () => {
             </div>
           </div>
         ) : (
-          <button className="bg-primary text-white px-8 py-3 rounded-full font-light hidden md:block">
+          <Link
+            href="/auth/signup"
+            className="bg-primary text-white px-8 py-3 rounded-full font-light hidden md:block"
+          >
             Create Account
-          </button>
+          </Link>
         )}
       </div>
     </div>
