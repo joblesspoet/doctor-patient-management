@@ -100,7 +100,7 @@ const Navbar: React.FC<NavbarProps> = ({ user }) => {
                 <ul className="py-1">
                   <li>
                     <Link
-                      href="/option1"
+                      href="/profile/me"
                       className="block px-4 py-2 hover:text-black cursor-pointer"
                     >
                       My Profile
